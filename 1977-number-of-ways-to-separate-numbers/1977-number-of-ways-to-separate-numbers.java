@@ -38,9 +38,9 @@ class Solution {
                     val = 0;
                 }else if(j < len){ //if not enough digits to make previous number's # of digits equal to that of current number's # of digits
                     val = dp[j - 1][j];
-                }else if(nums[j-len] == '0'){//if previous number begins with '0'
+                }/*else if(nums[j-len] == '0'){//if previous number begins with '0'
                     val = dp[j-1][len-1];
-                }else  {
+                }*/else  {
                     int common = lcp[j - len][j];
                     if ((common >= len)
                             || (nums[j - len + common] <= nums[j + common])) {
