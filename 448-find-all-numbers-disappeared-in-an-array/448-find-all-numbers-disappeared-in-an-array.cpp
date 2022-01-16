@@ -1,3 +1,10 @@
+/** IDEA: For each number seen make the number at the corresponding index as negative if not already negative.
+For example it the number seen at index 'i' is nums[i] then make nums[nums[abs(i)-1]] *= -1; (if not already negative.)
+
+Therefore while traversing through the array again if we see any number positive it means its corresponding index number which is (index+1) was never seen.
+And hence it can be added to the output vector.
+ 
+*/
 class Solution {
 public:
     vector<int> findDisappearedNumbers(vector<int>& nums) {
