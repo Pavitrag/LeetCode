@@ -3,16 +3,16 @@ public:
     vector<int> findDisappearedNumbers(vector<int>& nums) {
         vector<int> missings;
         int index = 0;
-        while(index < nums.size()){
-            if((nums[index] != index+1) && (nums[index] != nums[nums[index]-1])){
-                swap(nums, index, nums[index]-1);
-            }else{
-                index++;
+        for(int i=0; i< nums.size(); i++){
+            int index = nums[i];
+            index = abs(index) - 1;
+            if(nums[index] > 0){
+                nums[index] *= -1;
             }
         }
         
         for(int i=0; i< nums.size(); i++){
-            if(nums[i] != i+1){
+            if(nums[i] > 0){
                 missings.push_back(i+1);
             }
         }
