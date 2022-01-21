@@ -1,23 +1,26 @@
 class Solution {
 public:
     int minDeletions(string s) {
-        sort(begin(s), end(s));
+        int count[26]{ 0, };
+        for (auto& e : s) {
+            count[e - 'a']++;
+        }
         map<int, int> f;
         int minChars = 0;
-        int index = 0;
-        while (index < s.length()) {
-            int count = 1;
-            char curr = s[index++];
-            while (index < s.length() && s[index] == curr) {
-                index++;
-                count++;
+        for (int i = 0; i < 26; i++) {
+            int cnt = count[i];
+            if (cnt == 0) continue;
+            if (!f[cnt]) {
+                f[cnt]++;
             }
-            while (count > 0 && f[count] >= 1) {
-                minChars++;
-                count--;
-            }
-            if (count > 0) {
-                f[count]++;
+            else {
+                while (cnt > 0 && f[cnt] >= 1) {
+                    minChars++;
+                    cnt--;
+                }
+                if (cnt > 0) {
+                    f[cnt]++;
+                }
             }
         }
         return minChars;
