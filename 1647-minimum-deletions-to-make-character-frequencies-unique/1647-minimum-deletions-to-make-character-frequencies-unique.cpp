@@ -5,7 +5,7 @@ public:
         for (auto& e : s) {
             count[e - 'a']++;
         }
-        map<int, int> f;
+        unordered_map<int, int> f;
         int minChars = 0;
         for (int i = 0; i < 26; i++) {
             int cnt = count[i];
