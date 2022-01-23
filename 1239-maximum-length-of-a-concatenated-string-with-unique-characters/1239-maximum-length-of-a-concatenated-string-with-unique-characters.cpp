@@ -35,15 +35,38 @@ class Solution {
           return max =
                      std::max(max, backtrack(solution, strings, m, len, maxl, index+1));
     }
+    
+    //doing it in O(N**2)
+    int maxLen(vector<string>& arr){
+        int maxLength = 0;
+        vector<string> concats{string("")};
+        for(int i = 0; i< arr.size(); i++){
+            int num = convertToInt(arr[i]);
+            if(num == 0){
+                continue;
+            }
+            for(int j=0; j< concats.size(); j++){
+                int c = convertToInt(concats[j]);
+                if(!(num & c)){//no overlap chars
+                    string curr = concats[j] + arr[i];
+                    concats.push_back(curr);
+                    maxLength = std::max(maxLength, (int)curr.length());
+                }
+            }
+        }
+        return maxLength;
+    }
+    
 public:
     int maxLength(vector<string>& arr) {
-        vector<string> uarr;
-          for (const auto& s : arr) {
-            if (convertToInt(s)) {
-              uarr.push_back(s);
-            }
-          }
-        unordered_map<string, int> m = stringToIntegers(uarr);  // contains mapping from string to its bit calculated number.
-        return backtrack(0, uarr, m, 0, 0, 0);
+        return maxLen(arr);
+        // vector<string> uarr;
+        //   for (const auto& s : arr) {
+        //     if (convertToInt(s)) {
+        //       uarr.push_back(s);
+        //     }
+        //   }
+        // unordered_map<string, int> m = stringToIntegers(uarr);  // contains mapping from string to its bit calculated number.
+        // return backtrack(0, uarr, m, 0, 0, 0);
     }
 };
