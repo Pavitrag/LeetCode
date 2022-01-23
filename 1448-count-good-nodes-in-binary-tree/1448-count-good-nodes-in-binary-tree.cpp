@@ -12,22 +12,12 @@
 class Solution {
     int dfs(TreeNode* root, int max){
         int count = 0;
+        if(!root) return 0;
         if(root->val >= max){
-            count++;
-            if(root->left){
-                count += dfs(root->left, root->val);
-            }
-            if(root->right){
-                count += dfs(root->right, root->val);
-            }
-        }else{
-            if(root->left){
-                count += dfs(root->left, max);
-            }
-            if(root->right){
-                count += dfs(root->right, max);
-            }
+            count++;   
         }
+        count += dfs(root->left, std::max(root->val, max));
+        count += dfs(root->right, std::max(root->val, max));
         return count;
     }
 public:
