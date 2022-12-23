@@ -9,7 +9,7 @@ class Solution {
                     rightBoundry = searchFromRight(products, leftBoundry, rightBoundry, i, searchWord);
                 }
                 if (leftBoundry <= rightBoundry) {
-                    suggestions.add(Arrays.asList(products).subList(leftBoundry, Math.min(Math.min(rightBoundry + 1, leftBoundry + 3), products.length)));
+                    suggestions.add(Arrays.asList(products).subList(leftBoundry, Math.min(rightBoundry + 1, leftBoundry + 3)));
                 }else{
                     suggestions.add(new ArrayList());
                 }
