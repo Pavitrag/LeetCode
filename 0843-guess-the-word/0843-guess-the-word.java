@@ -8,29 +8,28 @@ import java.util.Optional;
  */
 class Solution {
     public void findSecretWord(String[] words, Master master) {
-        int guesses = 0;
+        int last = words.length;
         while(true){
-            Random r = new Random();
-            int k = r.nextInt(words.length);
-            int guess = master.guess(words[k]);
+            int guess = master.guess(words[0]);
             if(guess == 6){
-                break;
-            }else{
-                words = filterWords(words, words[k], guess);
+                System.out.println(words[0]);
+                return;
             }
-            // guesses++;
+            for(int i = 1; i < last;){
+                if(guess != match(words[0], words[i])){
+                    swap(words, i, --last);
+                }else{
+                    i++;
+                }
+            }
+            swap(words, 0, --last);
         }
-        // System.out.println("Guesses: " + guesses);
     }
 
-    private String[] filterWords(String[] words, String word, int matchCount) {
-        List<String> alist = new ArrayList<>();
-        for(String s: words){
-            if(match(word, s) == matchCount){
-                alist.add(s);
-            }
-        }
-        return alist.toArray(new String[0]);
+    private void swap(String[] words, int i, int j) {
+        String temp = words[i];
+        words[i] = words[j];
+        words[j] = temp;
     }
 
     public int match(String src, String... targets){
