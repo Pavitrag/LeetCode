@@ -27,7 +27,6 @@ class Solution {
             String prefix = word.substring(0, i);
             String suffix = word.substring(i, word.length());
             if(set.contains(prefix) && (set.contains(suffix) || test(set, suffix))){
-                set.add(suffix);
                 return true;
             }
         }
