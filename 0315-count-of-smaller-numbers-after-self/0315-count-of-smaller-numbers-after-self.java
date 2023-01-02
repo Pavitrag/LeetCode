@@ -1,62 +1,34 @@
 class Solution {
-    private static class Pair implements Comparable<Pair>{
-        int index;
-        int val;
-
-        Pair(int index, int val){
-            this.index = index;
-            this.val = val;
+   
+    int sum(int[] bit, int index){
+        int sum = 0;
+        while(index > 0){
+            sum += bit[index];
+            index -= (index & -index);
         }
-
-        @Override
-        public int compareTo(Pair o) {
-            if(this == o){
-                return 0;
-            }
-            return this.val - o.val;
-        }
+        return sum;
     }
-
-    //greater than sorts based Pair.val in descending order
-    private void mergeSort(Pair[] a, Pair[] aux, int lo, int hi, int[] count){
-        if(lo < hi){
-            int mid = (lo + hi) >>> 1;
-            mergeSort(aux, a, lo, mid, count);
-            mergeSort(aux, a, mid+1, hi, count);
-            merge(a, aux, lo, mid, hi, count);
+    
+    void add(int[] bit, int index){
+        while(index < bit.length){
+            bit[index] += 1;
+            index += (index & - index);
         }
     }
-
-    private void merge(Pair[] src, Pair[] dest, int lo, int mid, int hi, int[] count) {
-        int i = lo, j = mid+1;
-            for(int k = lo; k <= hi; k++){
-                if(i > mid) {
-                    dest[k] = src[j++];
-                }
-                else if(j > hi) {
-                    dest[k] = src[i++];
-                }
-                else if(src[i].compareTo(src[j]) > 0) {
-                    count[src[i].index] += hi - j +1;
-                    dest[k] = src[i++];
-                }
-                else {
-                    dest[k] = src[j++];
-                }
-            }
-    }
-
+    
     public List<Integer> countSmaller(int[] nums) {
-        int[] count = new int[nums.length];
-        Pair[] pairs = new Pair[nums.length];
-
-        for(int i = 0; i < nums.length; i++){
-            pairs[i] = new Pair(i, nums[i]);
+        final int MAX = 2*10000 + 2; //some higher constant which should be sufficiently large enough to hold values
+        final int OFFSET = 10000 + 1;
+        // values from -10^4 to 10^4
+        Integer[] count = new Integer[nums.length];
+        int[] bit = new int[MAX];
+        
+        for(int i = nums.length - 1; i >= 0; i--){
+            int n = nums[i] + OFFSET;
+            int c = sum(bit, n-1); // check if any number less than n is there in bit[]
+            count[i] = c;
+            add(bit, n);
         }
-
-        mergeSort(pairs.clone(), pairs, 0, pairs.length-1, count);
-        List<Integer> lcount = new ArrayList<>();
-        Arrays.stream(count).forEach(lcount::add);
-        return lcount;
+        return Arrays.asList(count);
     }
 }
