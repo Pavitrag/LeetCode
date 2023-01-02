@@ -19,7 +19,7 @@ class Solution {
     public List<Integer> countSmaller(int[] nums) {
         final int MAX = 2*10000 + 2; //some higher constant which should be sufficiently large enough to hold values
         final int OFFSET = 10000 + 1;
-        // values from -10^4 to 10^4
+        // in count[] values can range from -10^4 to 10^4.
         Integer[] count = new Integer[nums.length];
         int[] bit = new int[MAX];
         
