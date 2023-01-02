@@ -27,7 +27,7 @@ class Solution {
             int n = nums[i] + OFFSET;
             int c = sum(bit, n-1); // check if any number less than n is there in bit[]
             count[i] = c;
-            add(bit, n);
+            add(bit, n); // add the number to binary indexed tree 'bit[]' to all the indices <= n (obviously as per Fenwick tree logic) 
         }
         return Arrays.asList(count);
     }
