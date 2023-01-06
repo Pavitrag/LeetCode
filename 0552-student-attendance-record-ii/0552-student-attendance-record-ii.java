@@ -18,7 +18,6 @@ class Solution {
                 count =  (count + ((i-1 < 0 ? 1 : dp[i-1][L] + dp[i-1][P])%MODULO * (n-i-2 < 0 ? 1 : dp[n-i-2][L] + dp[n-i-2][P])%MODULO)%MODULO)%MODULO;
             }
 
-            //System.out.printf("%d, %d, %d%n", count%MODULO, dp[n-1][P], dp[n-1][L]);
             return (int)(((count + dp[n-1][P])%MODULO + dp[n-1][L])%MODULO);
         }
 }
