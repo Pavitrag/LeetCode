@@ -46,7 +46,6 @@ class Solution {
 
     private int findPeak(MountainArray mountainArr){
         int L_LIMIT = -1;
-        int U_LIMIT = 1000000000 + 1;
         int hi = mountainArr.length()-1;
         int lo = 0;
 
@@ -54,7 +53,7 @@ class Solution {
             int mid = ((lo + hi) >>> 1);
             int middle = mountainArr.get(mid);
             int prev = mid-1 >= 0 ? mountainArr.get(mid-1) : L_LIMIT;
-            int next = mid + 1 < mountainArr.length() ? mountainArr.get(mid+1) : U_LIMIT;
+            int next = mid + 1 < mountainArr.length() ? mountainArr.get(mid+1) : L_LIMIT;
 
             if(prev < middle && middle > next){ //peak
                 return mid;
